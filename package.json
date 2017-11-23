@@ -1,0 +1,22 @@
+{
+  "name": "office-markdown",
+  "version": "1.0.0",
+  "description": "parse office file to markdown",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "gatinul"
+  ],
+  "author": "gatinul",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.4.1",
+    "koa-router": "^7.3.0",
+    "koa-static": "^4.0.2",
+    "koa-views": "^6.1.2",
+    "node-xlsx": "^0.11.0"
+  }
+}
