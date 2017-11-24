@@ -13,10 +13,24 @@
   "author": "gatinul",
   "license": "ISC",
   "dependencies": {
+    "@reactivex/rxjs": "^5.5.2",
+    "@types/jquery": "^3.2.16",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babelify": "^8.0.0",
+    "browserify": "^14.5.0",
+    "gulp-babel": "^7.0.0",
+    "gulp-foal": "^1.1.2",
+    "gulp-uglify": "^3.0.0",
+    "jquery": "^3.2.1",
     "koa": "^2.4.1",
     "koa-router": "^7.3.0",
     "koa-static": "^4.0.2",
     "koa-views": "^6.1.2",
-    "node-xlsx": "^0.11.0"
+    "node-xlsx": "^0.11.0",
+    "tsify": "^3.0.3",
+    "typescript": "^2.6.1",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "noImplicitAny": false,
+        "target": "es2015",
+        "removeComments": true,
+        "allowJs": true,
+        "types": ["node"],
+        "module": "commonjs"
+    }
+}

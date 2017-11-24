@@ -3,7 +3,7 @@ const app = new Koa();
 const xlsx = require('node-xlsx').default;
 const views = require('koa-views');
 const fs = require('fs');
-const static = require('koa-static');
+const staticDir = require('koa-static');
 const path = require('path')
 
 
@@ -12,8 +12,8 @@ const Router = require('koa-router');
 
 const router = new Router();
 
-app.use(static(
-    path.join(__dirname, './build')
+app.use(staticDir(
+    path.join(__dirname, './static')
 ))
 
 app.use(views('./view'));
@@ -27,8 +27,8 @@ router.get('/', async function(ctx) {
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.listen(3000);
-console.log('[demo] start-quick is starting at port 3000');
+app.listen(3001);
+console.log('[demo] start-quick is starting at port 3001');
 
 
 

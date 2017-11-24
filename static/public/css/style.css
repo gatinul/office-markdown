@@ -1,0 +1,20 @@
+/**
+excel css
+*/
+
+
+/**
+markdown css
+*/
+
+.markdown-textarea {
+    min-height: 750px!important;
+    border: 0!important;
+    resize: none!important;
+    outline: none!important;
+    line-height: 150%!important;
+}
+
+.markdown {
+    min-height: 800px;
+}
