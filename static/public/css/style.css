@@ -4,24 +4,16 @@
 
 
 /**
-excel css
+解析文件 css
 */
-
-
-/* 覆盖 */
-
-h2.ui.header .sub.header {
-    font-size: 0.98rem;
-}
-
-button.basic {
-    margin-right: 10px!important;
-}
 
 .parser {
     margin: 10px!important;
     margin-left: 30px!important;
 }
+
+
+/* 按钮组 */
 
 #excel i {
     color: #107B10
@@ -33,6 +25,51 @@ button.basic {
 
 #copy i {
     color: #233;
+}
+
+
+/* 原文部分 */
+
+#original {
+    display: none;
+}
+
+
+/* 转义部分 */
+
+#translation {
+    display: none;
+}
+
+
+/* 上传 */
+
+.ui.upload {
+    border: 1px dashed #aaa!important;
+    background: #fff!important;
+    box-shadow: none;
+    margin-top: 1.8rem!important;
+    padding: 1.6rem 1.5rem!important;
+}
+
+.ui.upload i {
+    cursor: pointer;
+}
+
+#uploadDesc {
+    font-size: 13px;
+    color: #333;
+}
+
+
+/* 覆盖 */
+
+h2.ui.header .sub.header {
+    font-size: 0.98rem;
+}
+
+button.basic {
+    margin-right: 10px!important;
 }
 
 
