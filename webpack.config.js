@@ -27,7 +27,7 @@ module.exports = merge(common, {
     ],
     // 设置出口文件地址与文件名
     output: {
-        path: path.resolve('./static/build/js'),
+        path: path.resolve('./static/build/script'),
         filename: '[name].js'
     },
 });
