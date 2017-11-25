@@ -1,7 +1,21 @@
+.column {
+    padding: 15px;
+}
+
 /**
 excel css
 */
-
+/* 覆盖 */
+h2.ui.header .sub.header {
+    font-size: 0.98rem; 
+}
+button.basic {
+    margin-right: 10px!important;
+}
+.parser {
+    margin:10px!important;
+    margin-left:30px!important;
+}
 
 /**
 markdown css
@@ -17,4 +31,6 @@ markdown css
 
 .markdown {
     min-height: 800px;
+    margin-right: 15px!important;
 }
+

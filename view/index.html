@@ -4,22 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="Shortcut Icon" href="./favicon.ico">
     <link rel="stylesheet" type="text/css" href="build/css/semantic.css">
+    <link rel="stylesheet" type="text/css" href="build/css/animate.min.css">
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
     <title>excel转换</title>
 </head>
 
 <body>
-    <div class="ui container">
+    <div class="ui fluid container">
         <div class="ui divided grid">
             <div class="row">
                 <div class="six wide column">
-                    <h3 class="ui  header">
-                    </h3>
+                    <div class="parser">
+                        <h2 class="ui header">
+                            <i class="file text outline icon"></i>
+                            <div class="content">文件解析 <div class="sub header">支持excel，word或复制文本~</div>
+                            </div>
+                        </h2>
+                        <button class="ui basic button"><i class="file excel outline icon" style="color:green"></i> Excel </button>
+                        <button class="ui basic button"><i class="file word outline icon" ></i> Word </button>
+                        <button class="ui basic button"><i class="file outline icon"></i> Copy </button>
+                    </div>
                 </div>
                 <div class="ten wide column">
                     <div class="ui piled segment markdown">
-                        <h3 class="ui header">markdown文本</h3>
+                        <h2 class="ui header">markdown文本</h2>
                         <div class="ui form">
                             <div class="field">
                                 <textarea class="markdown-textarea"></textarea>

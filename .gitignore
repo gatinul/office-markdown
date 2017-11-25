@@ -1,3 +1,5 @@
 node_modules
 .sass-cache
 doc
+.DS_Store
+static/build/css/themes
