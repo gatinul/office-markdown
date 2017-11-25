@@ -19,12 +19,17 @@
                     <div class="parser">
                         <h2 class="ui header">
                             <i class="file text outline icon"></i>
-                            <div class="content">文件解析 <div class="sub header">支持excel，word或复制文本~</div>
+                            <div class="content">文件解析
+                                <div class="sub header">支持excel，word或复制文本~</div>
                             </div>
                         </h2>
-                        <button class="ui basic button"><i class="file excel outline icon" style="color:green"></i> Excel </button>
-                        <button class="ui basic button"><i class="file word outline icon" ></i> Word </button>
-                        <button class="ui basic button"><i class="file outline icon"></i> Copy </button>
+                        <div id="buttonGroup">
+                            <button class="ui basic button" id="excel"><i class="file excel outline icon"></i> Excel </button>
+                            <button class="ui basic button" id="word"><i class="file word outline icon"></i> Word </button>
+                            <button class="ui basic button" id="copy"><i class="file outline icon"></i> Copy </button>
+                        </div>
+                        <div id="original"></div>
+                        <div id="translation"></div>
                     </div>
                 </div>
                 <div class="ten wide column">
