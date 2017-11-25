@@ -5,12 +5,11 @@ const views = require('koa-views');
 const fs = require('fs');
 const staticDir = require('koa-static');
 const path = require('path')
+const router = require('./server/router')
 
 
 const files = `${__dirname}/doc/123.xlsx`;
-const Router = require('koa-router');
 
-const router = new Router();
 
 app.use(staticDir(
     path.join(__dirname, './static')
@@ -19,10 +18,6 @@ app.use(staticDir(
 app.use(views('./view'));
 
 
-router.get('/', async function(ctx) {
-    // ctx.router available
-    await ctx.render('index');
-});
 
 app.use(router.routes());
 app.use(router.allowedMethods());

@@ -25,15 +25,19 @@ const typeEvent = Rx.Observable.fromEvent(typeBtn, 'click');
 const upload = Rx.Observable.fromEvent('#upload', 'click');
 
 const typeResolve = typeEvent
-    .map(e => type = $(e.currentTarget).text().trim())
+    .map(e => $(e.currentTarget).text().trim())
+    .filter(r => type = r)
     .map(checkType)
     .do((ele: HTMLLIElement) => {
         console.warn(type);
-        original.append(ele);
         btnGroup.addClass('animated fadeOutUp');
         btnGroup.remove();
+        original.append(ele);
         original.css('display','block');
         original.addClass('animated fadeInUp');
     })
+// const analysis = upload
+//     .map(() => type)
+//     .fromPromise()
 const app = init.merge(typeResolve);
 app.subscribe();
