@@ -1,7 +1,7 @@
-import * as axios from 'axios';
 var  Rx = require('@reactivex/rxjs');
 import * as $ from 'jquery';
 import { checkType } from './lib';
+import api from './api';
 
 const blockXs:string = '\n\n\n';
 const blockMd:string = '\n\n\n\n\n\n\n'
@@ -22,7 +22,6 @@ const init = Rx.Observable.create(observer => {
     )
 })
 const typeEvent = Rx.Observable.fromEvent(typeBtn, 'click');
-const upload = Rx.Observable.fromEvent('#upload', 'click');
 
 const typeResolve = typeEvent
     .map(e => $(e.currentTarget).text().trim())
@@ -36,8 +35,23 @@ const typeResolve = typeEvent
         original.css('display','block');
         original.addClass('animated fadeInUp');
     })
-// const analysis = upload
-//     .map(() => type)
-//     .fromPromise()
-const app = init.merge(typeResolve);
+
+const app = init.merge(typeResolve)
+    .mergeMap(() => {
+        return Rx.Observable.fromEvent($('#upload'), 'click')
+        .do(()=>{
+            $('#uploadBtn').click()
+        })
+    })
+    .mergeMap(() => {
+        return Rx.Observable.fromEvent($('#uploadBtn'), 'change')
+        .do(()=>{
+            const file = document.getElementById('uploadBtn').files[0];
+            const formData = new FormData();
+            formData.append('file', file)
+            api.upload(formData).then(res => {
+                console.log(res)
+            })
+        })
+    })
 app.subscribe();

@@ -5,19 +5,24 @@ const views = require('koa-views');
 const fs = require('fs');
 const staticDir = require('koa-static');
 const path = require('path')
-const router = require('./server/router')
+const router = require('./server/router');
+const bodyParser = require("koa-bodyparser");
+const cors = require('koa-cors');
+const koaBody = require('koa-body');
 
 
-const files = `${__dirname}/doc/123.xlsx`;
-
+// const files = `${__dirname}/doc/123.xlsx`;
+app.use(cors());
 
 app.use(staticDir(
     path.join(__dirname, './static')
 ))
+app.use(koaBody({ multipart: true }));
+
+// 配置ctx.body解析中间件
+app.use(bodyParser());
 
 app.use(views('./view'));
-
-
 
 app.use(router.routes());
 app.use(router.allowedMethods());

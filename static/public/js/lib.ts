@@ -9,6 +9,9 @@ export const checkType = (type: string) => {
     if(type == 'Excel'){
         innerHTML = `
         <div class="ui icon message upload">
+            <form method="POST" action="/upload" id="uploadForm" enctype="multipart/form-data">
+                <input type="file" id="uploadBtn" style="display:none" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+            </form>
             <i class="cloud upload icon" id="upload"></i>
             <div class="content">
                 <div class="header">上传${type}文件
@@ -20,6 +23,7 @@ export const checkType = (type: string) => {
     }else if (type == 'Word'){
         innerHTML = `
         <div class="ui icon message upload">
+            <input type="file" id="uploadBtn" style="display:none">
             <i class="cloud upload icon" id="upload"></i>
             <div class="content">
                 <div class="header">上传${type}文件
