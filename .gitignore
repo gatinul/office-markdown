@@ -4,3 +4,5 @@ doc
 .DS_Store
 static/build/css/themes
 static/build/script
+static/build/css/animate.css
+static/build/css/semantic.css
