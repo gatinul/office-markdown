@@ -1,11 +1,13 @@
 var  Rx = require('@reactivex/rxjs');
 import * as $ from 'jquery';
-import { checkType } from './lib';
+import { checkType, renderBtn } from './lib';
 import api from './api';
 
 const blockXs:string = '\n\n\n';
 const blockMd:string = '\n\n\n\n\n\n\n'
 let type:string = '';
+let content: Array<any> = []
+let map = new Map()
 
 const mark:JQuery<HTMLElement> = $('.markdown-textarea');
 const btnGroup:JQuery<HTMLElement> = $('#buttonGroup');
@@ -44,13 +46,22 @@ const app = init.merge(typeResolve)
         })
     })
     .mergeMap(() => {
-        return Rx.Observable.fromEvent($('#uploadBtn'), 'change')
-        .do(()=>{
-            const file = document.getElementById('uploadBtn').files[0];
+        return Rx.Observable.fromEvent(document.getElementById('uploadBtn'), 'change')
+        .map((e)=>(e.target).files[0])
+        .do((r) => {
             const formData = new FormData();
-            formData.append('file', file)
+            formData.append('file', r)
             api.upload(formData).then(res => {
-                console.log(res)
+                content = []
+                if(res.success){
+                    for(let item of res.data){
+                        content.push(item.name)
+                        map.set(item.name, item.data)
+                    }
+                    console.log(content)
+                    original.empty();
+                    original.append(renderBtn(content))
+                }
             })
         })
     })

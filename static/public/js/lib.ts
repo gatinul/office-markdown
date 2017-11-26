@@ -3,7 +3,6 @@
  * @param  {string} type
  */
 export const checkType = (type: string) => {
-    console.log(1)
     const result = <HTMLLIElement>document.createElement('DIV')
     let innerHTML;
     if(type == 'Excel'){
@@ -35,4 +34,13 @@ export const checkType = (type: string) => {
     }
     result.innerHTML = innerHTML
     return result
+}
+export const renderBtn = (content:string[]) => {
+    const result = <HTMLLIElement>document.createElement('DIV')
+    let innerHTML='';
+    for(var i=0;i<content.length;i++){
+        innerHTML += `<button class="ui basic button">${content[i]}</button>`
+    }
+    result.innerHTML = innerHTML
+    return result;
 }
