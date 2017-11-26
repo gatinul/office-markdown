@@ -1,6 +1,9 @@
 'use strict'
 const xlsx = require('node-xlsx').default;
 const fs = require('fs');
+const log4js = require('../../config').log
+const logger = log4js.getLogger('common');
+const log = log4js.getLogger('error');
 
 module.exports = {
   async readFile(file) {
@@ -11,16 +14,15 @@ module.exports = {
       message:''
     }
     if(data){
-      console.log('service:success')
       fs.unlink(file,err => {
         if(err){
-          console.log('删除失败')
+          log.error(new Error('文件删除失败'));
         }else{
-          console.log(`删除文件${file}成功`)
+          logger.info(`删除文件${file}成功`)
         }
       })
       for (let item of data) {
-          if (item.name == '请求报文') {
+          if (item.name == '附录') {
               result.success.push(item)
           } else {
               result.fail.push(`${item.name} 被过滤掉了`)
