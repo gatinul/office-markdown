@@ -22,4 +22,5 @@ log4js.configure({
   }
 });
 
-exports.log = log4js;
+exports.common = log4js.getLogger('common');
+exports.error = log4js.getLogger('error');

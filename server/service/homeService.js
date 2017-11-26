@@ -1,9 +1,8 @@
 'use strict'
 const xlsx = require('node-xlsx').default;
 const fs = require('fs');
-const log4js = require('../../config').log
-const logger = log4js.getLogger('common');
-const log = log4js.getLogger('error');
+const log = require('../../config').common;
+const logger = require('../../config').error;
 
 module.exports = {
   async readFile(file) {
@@ -16,9 +15,9 @@ module.exports = {
     if(data){
       fs.unlink(file,err => {
         if(err){
-          log.error(new Error('文件删除失败'));
+          logger.error(new Error('文件删除失败'));
         }else{
-          logger.info(`删除文件${file}成功`)
+          log.info(`删除文件${file}成功`)
         }
       })
       for (let item of data) {
