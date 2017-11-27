@@ -13,10 +13,7 @@ module.exports = {
     "rules": {
         'no-console': 'off',
         'no-use-before-define': 'off',
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
+        'linebreak-style': 'off',
         "quotes": [
             "error",
             "single"

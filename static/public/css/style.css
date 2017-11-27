@@ -32,6 +32,7 @@
 
 #original {
     display: none;
+    margin-top: 30px;
 }
 
 
@@ -59,6 +60,18 @@
 #uploadDesc {
     font-size: 13px;
     color: #333;
+}
+
+.sheetBtn {
+    margin-top: 20px;
+}
+
+.sheetBtn .header {
+    color: #1678c2!important;
+}
+
+#original .ui.card {
+    width: 95%;
 }
 
 

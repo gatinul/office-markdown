@@ -37,10 +37,21 @@ export const checkType = (type: string) => {
 }
 export const renderBtn = (content:string[]) => {
     const result = <HTMLLIElement>document.createElement('DIV')
-    let innerHTML='';
+    let innerHTML=`<div class="content">
+        <div class="header">工作表列表</div>
+        <div class="meta">
+        <span>点击解析工作表</span>  
+        </div>
+        <div class="ui middle aligned selection list sheetBtn">`;
     for(var i=0;i<content.length;i++){
-        innerHTML += `<button class="ui basic button">${content[i]}</button>`
+        innerHTML += `<div class="item">
+            <div class="content">
+            <div class="header">${content[i]}</div>
+            </div>
+        </div>`
     }
+    innerHTML += `</div></div>`
     result.innerHTML = innerHTML
+    result.className = 'ui card'
     return result;
 }
