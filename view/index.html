@@ -31,8 +31,10 @@
                         <div id="original">
 
                         </div>
-                        <pre id="translation">                                
-                        </pre>
+                        <div id="translation">
+                            <i class="clone icon" style="float:right" data-clipboard-target=".parseText"></i>
+                            <pre class="parseText"></pre>
+                        </div>
                     </div>
                 </div>
                 <div class="ten wide column">
@@ -51,9 +53,12 @@
 
 </body>
 <script src="build/js/jquery-1.11.3.min.js"></script>
+<script src="build/js/clipboard.min.js"></script>
 <script src="build/js/semantic.js"></script>
 <script src="build/script/manifest.js"></script>
 <script src="build/script/vendor.js"></script>
 <script src="build/script/excelToMark.js"></script>
-
+<script>
+    new Clipboard('.clone');
+</script>
 </html>

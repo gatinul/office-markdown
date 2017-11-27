@@ -24,6 +24,10 @@ const init = Rx.Observable.create(observer => {
     )
 })
 const typeEvent = Rx.Observable.fromEvent(typeBtn, 'click');
+const copy = Rx.Observable.fromEvent($('.clone'), 'click')
+    .do(()=>{
+        console.log(1)
+    })
 
 const typeResolve = typeEvent
     .map(e => $(e.currentTarget).text().trim())
@@ -67,7 +71,7 @@ const app = init.merge(typeResolve)
                 .do((e)=>{
                     const name = $(e.target).text()
                     const html = parse(name, map.get(name));
-                    translation.text(html);
+                    $('.parseText').text(html);
                     translation.css('display','block');
                     translation.addClass('animated fadeInUp');
                 })
@@ -75,4 +79,5 @@ const app = init.merge(typeResolve)
             })
         })
     })
+copy.subscribe();
 app.subscribe();
