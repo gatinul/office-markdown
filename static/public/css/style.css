@@ -32,7 +32,7 @@
 
 #original {
     display: none;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 
@@ -72,6 +72,15 @@
 
 #original .ui.card {
     width: 95%;
+}
+
+pre {
+    /* 英文换行 针对单词 */
+    word-wrap: break-word;
+    /* 中文换行 */
+    white-space: pre-wrap;
+    font-family: "Helvetica Neue", "Hiragino Sans GB", "LiHei Pro";
+    font-size: 14px;
 }
 
 

@@ -1,6 +1,6 @@
 var  Rx = require('@reactivex/rxjs');
 import * as $ from 'jquery';
-import { checkType, renderBtn } from './lib';
+import { checkType, renderBtn, upload, parse } from './lib';
 import api from './api';
 
 const blockXs:string = '\n\n\n';
@@ -37,7 +37,6 @@ const typeResolve = typeEvent
         original.css('display','block');
         original.addClass('animated fadeInUp');
     })
-
 const app = init.merge(typeResolve)
     .mergeMap(() => {
         return Rx.Observable.fromEvent($('#upload'), 'click')
@@ -48,20 +47,31 @@ const app = init.merge(typeResolve)
     .mergeMap(() => {
         return Rx.Observable.fromEvent(document.getElementById('uploadBtn'), 'change')
         .map((e)=>(e.target).files[0])
-        .do((r) => {
+        .map(v => {
             const formData = new FormData();
-            formData.append('file', r)
-            api.upload(formData).then(res => {
+            formData.append('file', v)
+            return formData
+        })
+        .map(upload)
+        .do(r => {
+            r.then(d=>{
                 content = []
-                if(res.success){
-                    for(let item of res.data){
-                        content.push(item.name)
-                        map.set(item.name, item.data)
-                    }
-                    console.log(content)
-                    original.empty();
-                    original.append(renderBtn(content))
+                for(let item of d){
+                    content.push(item.name)
+                    map.set(item.name, item.data)
                 }
+                original.empty();
+                original.append(renderBtn(content))
+                const sheet = $('#original').find('.sheetList')
+                const sheet$ =  Rx.Observable.fromEvent(sheet, 'click')
+                .do((e)=>{
+                    const name = $(e.target).text()
+                    const html = parse(name, map.get(name));
+                    translation.text(html);
+                    translation.css('display','block');
+                    translation.addClass('animated fadeInUp');
+                })
+                sheet$.subscribe()
             })
         })
     })
