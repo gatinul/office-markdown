@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="build/css/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="build/css/animate.min.css">
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="public/css/github.css">
+    <link rel="stylesheet" type="text/css" href="public/css/markdown.css">
     <title>excel转换</title>
 </head>
 
@@ -39,9 +41,9 @@
                 </div>
                 <div class="ten wide column">
                     <div class="ui piled segment markdown">
-                        <h2 class="ui header">markdown文本</h2>
+                        <h2 class="ui header">markdown文本<i class="content icon" id="preview"></i></h2>
                         <div class="ui form">
-                            <div class="field">
+                            <div class="field" id="markdown-field">
                                 <textarea class="markdown-textarea"></textarea>
                             </div>
                         </div>
@@ -61,4 +63,5 @@
 <script>
     new Clipboard('.clone');
 </script>
+
 </html>

@@ -1,6 +1,22 @@
 var  Rx = require('@reactivex/rxjs');
 import * as $ from 'jquery';
 import api from './api';
+var marked = require('marked');
+var highlight = require('highlight.js');
+
+marked.setOptions({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: true,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false,
+    highlight: code => {
+        return highlight.highlightAuto(code).value;
+    },
+});
 
 const br:string = '\n';
 let start = 0;
@@ -92,6 +108,15 @@ export const parse = (name:string, data:Array<any>) => {
     content.push(data.slice(start))
     multi?result=parseMultiTable(content):result=parseTable(data)
     console.log(result);
+    return result;
+}
+export const exchange = (value:string) => {
+    const result = <HTMLLIElement>document.createElement('DIV')
+    console.log(value)
+    const html = marked(value)
+    console.log(html)
+    result.className = 'hljs'
+    result.innerHTML = html;
     return result;
 }
 

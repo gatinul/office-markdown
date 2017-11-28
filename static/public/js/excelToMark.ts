@@ -1,7 +1,8 @@
 var  Rx = require('@reactivex/rxjs');
 import * as $ from 'jquery';
-import { checkType, renderBtn, upload, parse } from './lib';
+import { checkType, renderBtn, upload, parse, exchange } from './lib';
 import api from './api';
+
 
 const blockXs:string = '\n\n';
 const blockMd:string = '\n\n\n\n\n\n\n'
@@ -14,6 +15,7 @@ const btnGroup:JQuery<HTMLElement> = $('#buttonGroup');
 const typeBtn:JQuery<HTMLElement> = $('#buttonGroup button');
 const original:JQuery<HTMLElement> = $('#original');
 const translation:JQuery<HTMLElement> = $('#translation');
+const textarea:JQuery<HTMLElement> = $('.markdown-textarea');
 
 const init = Rx.Observable.create(observer => {
     mark.text(
@@ -24,9 +26,11 @@ const init = Rx.Observable.create(observer => {
     )
 })
 const typeEvent = Rx.Observable.fromEvent(typeBtn, 'click');
-const copy = Rx.Observable.fromEvent($('.clone'), 'click')
+const preview = Rx.Observable.fromEvent($('#preview'), 'click')
     .do(()=>{
-        console.log(1)
+        $('#markdown-field').empty()
+        $('#markdown-field').append(exchange(textarea.val().toString()))
+        // console.log(textarea.val())
     })
 
 const typeResolve = typeEvent
@@ -78,6 +82,5 @@ const app = init.merge(typeResolve)
                 sheet$.subscribe()
             })
         })
-    })
-copy.subscribe();
+    }).merge(preview)
 app.subscribe();
