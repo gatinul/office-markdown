@@ -19,10 +19,10 @@ const textarea:JQuery<HTMLElement> = $('.markdown-textarea');
 
 const init = Rx.Observable.create(observer => {
     mark.text(
-        '## 接口名称' + blockXs +
-        '## 接口描述' + blockXs +
+        '## 接口信息' + blockXs +
         '## 请求报文' + blockXs +
-        '## 返回报文' + blockXs
+        '## 返回报文' + blockXs +
+        '## 数据字典' + blockXs 
     )
 })
 const typeEvent = Rx.Observable.fromEvent(typeBtn, 'click');

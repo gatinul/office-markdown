@@ -1,8 +1,11 @@
 var  Rx = require('@reactivex/rxjs');
 import * as $ from 'jquery';
+import * as _ from 'lodash';
 import api from './api';
 var marked = require('marked');
 var highlight = require('highlight.js');
+var parseRule = require('./config').parseRule
+var splitRule = require('./config').splitRule
 
 marked.setOptions({
     renderer: new marked.Renderer(),
@@ -94,33 +97,50 @@ export const upload = (formData) => {
         })
     })
 }
+/**
+ * 解析上传数据
+ * @param  {string} name
+ * @param  {Array<any>} data
+ * @param  目前3种 表格/代码/文本
+ */
 export const parse = (name:string, data:Array<any>) => {
-    reset()
-    for(let i=0;i<data.length;i++){
-        if(data[i].length == 1 && (data[i][0].substring(0,4)).toUpperCase() == 'LNOP'){
-            multi =  true;
-            const arr = data.slice(start, i)
-            content.push(arr)
-            start = i
-        }
-    }
+    const key =  _.findKey(parseRule, function(chr) {
+        return chr.indexOf(name) > -1
+    });
     let result;
-    content.push(data.slice(start))
-    multi?result=parseMultiTable(content):result=parseTable(data)
-    console.log(result);
+    if(key == 'table') {
+        reset()
+        for(let i=0;i<data.length;i++){
+            if(data[i].length == 1 && splitRule.indexOf(data[i][0].substring(0,4)) > -1){
+                multi =  true;
+                const arr = data.slice(start, i)
+                content.push(arr)
+                start = i
+            }
+        }
+        content.push(data.slice(start))
+        multi?result=parseMultiTable(content):result=parseTable(data)
+    } else {
+        result = parseText(data);
+    }
     return result;
 }
+/**
+ * 预览markdown
+ * @param  {string} value
+ */
 export const exchange = (value:string) => {
     const result = <HTMLLIElement>document.createElement('DIV')
-    console.log(value)
     const html = marked(value)
-    console.log(html)
     result.className = 'hljs'
     result.innerHTML = html;
     return result;
 }
-
-function parseTable(data) {
+/**
+ * 解析单表格
+ * @param  {} data
+ */
+function parseTable(data:Array<any>) {
     let html = '';
     if(data){
         for (let item of data[0]){
@@ -146,17 +166,36 @@ function parseTable(data) {
     }
     return html;
 }
-function parseMultiTable(data) {
+/**
+ * 解析多表格
+ * @param  {} data
+ */
+function parseMultiTable(data:Array<any>) {
     let html = '';
     for( let i = 1; i < data.length; i++ ){
         html += '### ' + data[i][0]
         html += br
         html += parseTable(data[i].slice(1))
     }
-    console.info(html)
     return html;
 }
-
+function parseText(data:Array<any>){
+    let html = '';
+    for (let i=0;i<data.length;i++){
+        if(data[i].length > 1){
+            for (let j=0;j<data[i].length;j++){
+                html += data[i][j]
+            }
+        }else {
+            html += data[i]
+        }
+        html += br
+    }
+    return html;
+}
+/**
+ * 表格解析前重置
+ */
 function reset(){
     start = 0;
     content = [];

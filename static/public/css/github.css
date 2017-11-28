@@ -2,11 +2,15 @@
 github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 */
 
+
+/* font-family 覆盖*/
+
 .hljs {
     display: block;
     overflow-x: auto;
     padding: 0.5em;
     color: #333;
+    font-family: serif;
 }
 
 .hljs-comment,
