@@ -3,7 +3,7 @@ import * as $ from 'jquery';
 import { checkType, renderBtn, upload, parse } from './lib';
 import api from './api';
 
-const blockXs:string = '\n\n\n';
+const blockXs:string = '\n\n';
 const blockMd:string = '\n\n\n\n\n\n\n'
 let type:string = '';
 let content: Array<any> = []
@@ -19,8 +19,8 @@ const init = Rx.Observable.create(observer => {
     mark.text(
         '## 接口名称' + blockXs +
         '## 接口描述' + blockXs +
-        '## 请求报文' + blockMd +
-        '## 返回报文' + blockMd
+        '## 请求报文' + blockXs +
+        '## 返回报文' + blockXs
     )
 })
 const typeEvent = Rx.Observable.fromEvent(typeBtn, 'click');

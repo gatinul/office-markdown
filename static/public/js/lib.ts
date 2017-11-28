@@ -81,7 +81,7 @@ export const upload = (formData) => {
 export const parse = (name:string, data:Array<any>) => {
     reset()
     for(let i=0;i<data.length;i++){
-        if(data[i].length == 1 && data[i][0].substring(0,4) == 'LNOP'){
+        if(data[i].length == 1 && (data[i][0].substring(0,4)).toUpperCase() == 'LNOP'){
             multi =  true;
             const arr = data.slice(start, i)
             content.push(arr)
@@ -124,7 +124,7 @@ function parseTable(data) {
 function parseMultiTable(data) {
     let html = '';
     for( let i = 1; i < data.length; i++ ){
-        html += '###' + data[i][0]
+        html += '### ' + data[i][0]
         html += br
         html += parseTable(data[i].slice(1))
     }
