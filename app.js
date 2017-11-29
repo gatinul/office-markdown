@@ -8,6 +8,8 @@ const path = require('path')
 const router = require('./server/router');
 const bodyParser = require("koa-bodyparser");
 const koaBody = require('koa-body');
+const shell = require('shelljs');
+const log = require('./config').common;
 
 
 
@@ -56,3 +58,12 @@ console.log('[demo] start-quick is starting at port 3001');
 //         console.log(`${item.name} 被过滤掉了`)
 //     }
 // }
+
+
+shell.exec('mammoth ./static/test.docx --output-format=html', function (code, stdout, stderr) {
+    if (code) {
+        console.log('Error code: ' + code);
+        // return;
+    }
+    log.debug(stdout)
+});
