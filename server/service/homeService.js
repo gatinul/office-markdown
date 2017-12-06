@@ -4,6 +4,7 @@ const fs = require('fs');
 const log = require('../../config').common;
 const logger = require('../../config').error;
 const shell = require('shelljs');
+const sFormat = require('../util').symbolFormat;
 
 module.exports = {
     /**
@@ -38,7 +39,7 @@ module.exports = {
             message: '',
             data: []
         }
-        let data = new Promise(function(resolve, reject) {
+        let data = await new Promise(function(resolve, reject) {
             shell.exec(`mammoth ${file} --output-format=html`, function(code, stdout) {
                 resolve(stdout)
             });

@@ -2,7 +2,8 @@ var  Rx = require('@reactivex/rxjs');
 import * as $ from 'jquery';
 import { checkType, renderBtn, upload, parse, exchange } from './lib';
 import api from './api';
-
+var highlight = require('highlight.js');
+var parseRule = require('./config').parseRule
 
 const blockXs:string = '\n\n';
 const blockMd:string = '\n\n\n\n\n\n\n'
@@ -19,10 +20,10 @@ const textarea:JQuery<HTMLElement> = $('.markdown-textarea');
 
 const init = Rx.Observable.create(observer => {
     mark.text(
-        '## 接口信息' + blockXs +
-        '## 请求报文' + blockXs +
-        '## 返回报文' + blockXs +
-        '## 数据字典' + blockXs 
+        '#### 接口信息' + blockXs +
+        '#### 请求报文' + blockXs +
+        '#### 返回报文' + blockXs +
+        '#### 数据字典' + blockXs 
     )
 })
 const typeEvent = Rx.Observable.fromEvent(typeBtn, 'click');
@@ -63,25 +64,44 @@ const app = init.merge(typeResolve)
         .map(upload)
         .do(r => {
             r.then(d=>{
-                console.log(d)
-                // content = []
-                // for(let item of d){
-                //     content.push(item.name)
-                //     map.set(item.name, item.data)
-                // }
-                // original.empty();
-                // original.append(renderBtn(content))
-                // const sheet = $('#original').find('.sheetList')
-                // const sheet$ =  Rx.Observable.fromEvent(sheet, 'click')
-                // .do((e)=>{
-                //     const name = $(e.target).text()
-                //     const html = parse(name, map.get(name));
-                //     $('.parseText').text(html);
-                //     translation.css('display','block');
-                //     translation.addClass('animated fadeInUp');
-                // })
-                // sheet$.subscribe()
+                if(d.type == 'excel'){
+                    content = []
+                    for(let item of d.data){
+                        content.push(item.name)
+                        map.set(item.name, item.data)
+                    }
+                    original.empty();
+                    original.append(renderBtn(content))
+                    const sheet = $('#original').find('.sheetList')
+                    const sheet$ =  Rx.Observable.fromEvent(sheet, 'click')
+                    .do((e)=>{
+                        const name = $(e.target).text()
+                        const html = parse(name, map.get(name));
+                        $('.parseText').text(html);
+                        translation.css('display','block');
+                        translation.addClass('animated fadeInUp');
+                    })
+                    sheet$.subscribe()
+                }else{
+                    $('#markdown-field').html(d.data)
+                    $('#markdown-field h5').each(function(){
+                        const text = $(this).text();
+                        if(parseRule.code.indexOf(text)>-1){
+                            const code = $(this).next('p').text();
+                            const result = highlight.highlightAuto(code).value;
+                            $(this).next('p').empty().append(`<pre>${result}</pre>`)
+                        }
+                    });
+                    $('.markdown').find('h2').remove()
+                    $('.markdown').removeClass('piled')
+                }
+               
             })
         })
     }).merge(preview)
 app.subscribe();
+
+
+$('#test').click(function(){
+    console.log($('#markdown-field').html())
+})

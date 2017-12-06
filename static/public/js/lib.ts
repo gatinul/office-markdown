@@ -90,7 +90,7 @@ export const upload = (formData) => {
     return new Promise(function (resolve, reject){
         api.upload(formData).then(r=>{
             if(r.success){
-              resolve(r)
+                resolve(r)
             }else{
                 resolve(r.message)
             }
@@ -173,7 +173,7 @@ function parseTable(data:Array<any>) {
 function parseMultiTable(data:Array<any>) {
     let html = '';
     for( let i = 1; i < data.length; i++ ){
-        html += '### ' + data[i][0]
+        html += '##### ' + data[i][0]
         html += br
         html += parseTable(data[i].slice(1))
     }
