@@ -20,3 +20,5 @@ $ open http://localhost:3001/
 ### TODO
 1. ~~将tag识别标识都转为大写再比较~~
 2. ~~增加复制按钮，复制到剪切板~~
+3. excel，右侧markdown预览 增加保存 保存前将markdown文本marked转成html格式 这样每次点击时 只需获取文件中内容 appednd 即可 
+4. word支持一键上传 逐个文件读取 记录日志 解析成html直接返回右侧div 也可保存

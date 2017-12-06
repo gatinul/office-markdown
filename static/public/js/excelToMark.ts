@@ -94,6 +94,7 @@ const app = init.merge(typeResolve)
                             $(this).after(`<pre>${result}</pre>`)
                         }
                     });
+                    $('.removeP').remove();
                     $('.markdown').find('h2').remove()
                     $('.markdown').removeClass('piled')
                 }
@@ -110,7 +111,9 @@ $('#test').click(function(){
 
 function code(e) {
     if(e.next().prop('tagName') == 'P'){
-        hideDiv.append('<p>' + e.next().text() + '</p>')
+        // 直接append会把原元素删除
+        hideDiv.append(e.next().clone())
+        e.next().addClass('removeP')
         code(e.next())
     }
 }
