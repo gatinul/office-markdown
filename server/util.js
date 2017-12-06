@@ -10,6 +10,10 @@ exports.format = function(str, file) {
     const name = firstUpperCase(b[0]);
     return (`${name}：${str}`);
 };
+exports.symbolFormat = function(str) {
+    const result = '****' + str + '****';
+    return result;
+};
 /**
  * 首字母大写
  * @param  {string} str

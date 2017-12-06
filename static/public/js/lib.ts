@@ -90,7 +90,7 @@ export const upload = (formData) => {
     return new Promise(function (resolve, reject){
         api.upload(formData).then(r=>{
             if(r.success){
-              resolve(r.data)
+              resolve(r)
             }else{
                 resolve(r.message)
             }

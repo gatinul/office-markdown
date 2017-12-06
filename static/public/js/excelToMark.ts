@@ -63,23 +63,24 @@ const app = init.merge(typeResolve)
         .map(upload)
         .do(r => {
             r.then(d=>{
-                content = []
-                for(let item of d){
-                    content.push(item.name)
-                    map.set(item.name, item.data)
-                }
-                original.empty();
-                original.append(renderBtn(content))
-                const sheet = $('#original').find('.sheetList')
-                const sheet$ =  Rx.Observable.fromEvent(sheet, 'click')
-                .do((e)=>{
-                    const name = $(e.target).text()
-                    const html = parse(name, map.get(name));
-                    $('.parseText').text(html);
-                    translation.css('display','block');
-                    translation.addClass('animated fadeInUp');
-                })
-                sheet$.subscribe()
+                console.log(d)
+                // content = []
+                // for(let item of d){
+                //     content.push(item.name)
+                //     map.set(item.name, item.data)
+                // }
+                // original.empty();
+                // original.append(renderBtn(content))
+                // const sheet = $('#original').find('.sheetList')
+                // const sheet$ =  Rx.Observable.fromEvent(sheet, 'click')
+                // .do((e)=>{
+                //     const name = $(e.target).text()
+                //     const html = parse(name, map.get(name));
+                //     $('.parseText').text(html);
+                //     translation.css('display','block');
+                //     translation.addClass('animated fadeInUp');
+                // })
+                // sheet$.subscribe()
             })
         })
     }).merge(preview)
