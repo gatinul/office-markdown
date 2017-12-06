@@ -17,6 +17,7 @@ const typeBtn:JQuery<HTMLElement> = $('#buttonGroup button');
 const original:JQuery<HTMLElement> = $('#original');
 const translation:JQuery<HTMLElement> = $('#translation');
 const textarea:JQuery<HTMLElement> = $('.markdown-textarea');
+const hideDiv:JQuery<HTMLElement> = $('#hide');
 
 const init = Rx.Observable.create(observer => {
     mark.text(
@@ -85,11 +86,12 @@ const app = init.merge(typeResolve)
                 }else{
                     $('#markdown-field').html(d.data)
                     $('#markdown-field h5').each(function(){
+                        hideDiv.empty()
                         const text = $(this).text();
                         if(parseRule.code.indexOf(text)>-1){
-                            const code = $(this).next('p').text();
-                            const result = highlight.highlightAuto(code).value;
-                            $(this).next('p').empty().append(`<pre>${result}</pre>`)
+                            code($(this));
+                            const result = hideDiv.html()
+                            $(this).after(`<pre>${result}</pre>`)
                         }
                     });
                     $('.markdown').find('h2').remove()
@@ -105,3 +107,10 @@ app.subscribe();
 $('#test').click(function(){
     console.log($('#markdown-field').html())
 })
+
+function code(e) {
+    if(e.next().prop('tagName') == 'P'){
+        hideDiv.append('<p>' + e.next().text() + '</p>')
+        code(e.next())
+    }
+}
