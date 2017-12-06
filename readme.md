@@ -14,6 +14,7 @@
 
 ```bash
 $ npm i
+$ npm run parse
 $ npm run dev
 $ open http://localhost:3001/
 ```
