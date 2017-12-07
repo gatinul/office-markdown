@@ -5,6 +5,7 @@ const log = require('../../config').common;
 const logger = require('../../config').error;
 const shell = require('shelljs');
 const sFormat = require('../util').symbolFormat;
+var mammoth = require("mammoth");
 
 module.exports = {
     /**
@@ -40,9 +41,14 @@ module.exports = {
             data: []
         }
         let data = await new Promise(function(resolve, reject) {
-            shell.exec(`mammoth ${file} --output-format=html`, function(code, stdout) {
-                resolve(stdout)
-            });
+            // shell.exec(`mammoth ${file} --output-format=html`, function(code, stdout) {
+            //     resolve(stdout)
+            // });
+            mammoth.convertToHtml({ path: file })
+                .then(function(result) {
+                    resolve(result.value)
+                })
+                .done();
         })
         if (data) {
             result.success = true;
