@@ -5,5 +5,7 @@ const router = new Router();
 
 router.get('/', home.index);
 router.post('/upload', home.upload);
+router.post('/download', home.download);
+
 
 module.exports = router;

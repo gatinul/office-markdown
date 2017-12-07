@@ -96,8 +96,10 @@ export const renderBtn = (content:string[]) => {
  * @param  {} formData
  */
 export const upload = (formData) => {
+    $('.inverted.dimmer').addClass('active');
     return new Promise(function (resolve, reject){
         api.upload(formData).then(r=>{
+            $('.inverted.dimmer').removeClass('active');
             if(r.success){
                 resolve(r)
             }else{

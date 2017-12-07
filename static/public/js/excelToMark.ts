@@ -31,8 +31,15 @@ const init = Rx.Observable.create(observer => {
 const typeEvent = Rx.Observable.fromEvent(typeBtn, 'click');
 const preview = Rx.Observable.fromEvent($('#preview'), 'click')
     .do(()=>{
-        $('#markdown-field').empty()
-        $('#markdown-field').append(exchange(textarea.val().toString()))
+        if($('#markdown-field').hasClass('preview')){
+            $('.markdown-preview').empty()
+            textarea.css('display', 'block')
+            $('#markdown-field').removeClass('preview')
+        }else {
+            textarea.css('display', 'none')
+            $('.markdown-preview').append(exchange(textarea.val().toString()))
+            $('#markdown-field').addClass('preview')
+        }
     })
 
 const typeResolve = typeEvent
@@ -93,9 +100,6 @@ const app = init.merge(typeResolve)
 app.subscribe();
 
 
-$('#test').click(function(){
-    console.log($('#markdown-field').html())
-})
 
 /**
  * 单个excel表处理
@@ -127,8 +131,9 @@ function resolveExcelQuick(e){
  * @param  {} d
  */
 function resolveDocx(d){
-    $('#markdown-field').html(d.data)
-    $('#markdown-field h5').each(function(){
+    textarea.css('display', 'none')
+    $('.markdown-preview').html(d.data)
+    $('.markdown-preview h5').each(function(){
         hideDiv.empty()
         const text = $(this).text();
         if(parseRule.code.indexOf(text)>-1){

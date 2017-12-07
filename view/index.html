@@ -15,6 +15,9 @@
 
 <body>
     <div class="ui fluid container">
+        <div class="ui inverted dimmer">
+            <div class="ui text loader" style="position:fixed">请稍候...</div>
+        </div>
         <div class="ui divided grid">
             <div class="row">
                 <div class="six wide column">
@@ -46,6 +49,7 @@
                         <div class="ui form">
                             <div class="field" id="markdown-field">
                                 <textarea class="markdown-textarea"></textarea>
+                                <div class="markdown-preview"></div>
                             </div>
                         </div>
                     </div>
@@ -55,7 +59,6 @@
             </div>
         </div>
     </div>
-
 </body>
 <script src="build/js/jquery-1.11.3.min.js"></script>
 <script src="build/js/clipboard.min.js"></script>
@@ -65,6 +68,29 @@
 <script src="build/script/excelToMark.js"></script>
 <script>
     new Clipboard('.clone');
+
+    function fake_click(obj) {
+        var ev = document.createEvent("MouseEvents");
+        ev.initMouseEvent(
+            "click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null
+        );
+        obj.dispatchEvent(ev);
+    }
+
+    function export_raw(name, data) {
+        var urlObject = window.URL || window.webkitURL || window;
+
+        var export_blob = new Blob([data]);
+
+        var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
+        save_link.href = urlObject.createObjectURL(export_blob);
+        save_link.download = name;
+        fake_click(save_link);
+    }
+
+    $('#test').click(function() {
+        export_raw('test.jy', $('.markdown-preview').html());
+    });
 </script>
 
 </html>
