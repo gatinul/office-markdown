@@ -21,7 +21,4 @@ export default {
     upload(param) {
         return fetch('/upload', param);
     },
-    download(param) {
-        return fetch('/download', param);
-    }
 };

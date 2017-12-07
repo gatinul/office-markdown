@@ -44,7 +44,4 @@ module.exports = {
         }
         ctx.body = result;
     },
-    async download(ctx) {
-        fs.writeFileSync('test.aj', ctx.request.body)
-    }
 }
