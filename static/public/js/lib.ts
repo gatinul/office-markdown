@@ -65,7 +65,16 @@ export const checkType = (type: string) => {
 export const renderBtn = (content:string[]) => {
     const result = <HTMLLIElement>document.createElement('DIV')
     let innerHTML=`<div class="content">
-        <div class="header">工作表列表</div>
+        <div class="header">工作表列表
+            <div class="ui left labeled button" id="quick" style="float:right" tabindex="0">
+                <a class="ui basic label">
+                一键生成
+                </a>
+                <div class="ui icon button">
+                <i class="share icon"></i>
+                </div>
+            </div>
+        </div>
         <div class="meta">
         <span>点击解析工作表</span>  
         </div>

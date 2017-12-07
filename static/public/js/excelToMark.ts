@@ -9,7 +9,8 @@ const blockXs:string = '\n\n';
 const blockMd:string = '\n\n\n\n\n\n\n'
 let type:string = '';
 let content: Array<any> = []
-let map = new Map()
+let map = new Map();
+let excelHtml = '';
 
 const mark:JQuery<HTMLElement> = $('.markdown-textarea');
 const btnGroup:JQuery<HTMLElement> = $('#buttonGroup');
@@ -32,7 +33,6 @@ const preview = Rx.Observable.fromEvent($('#preview'), 'click')
     .do(()=>{
         $('#markdown-field').empty()
         $('#markdown-field').append(exchange(textarea.val().toString()))
-        // console.log(textarea.val())
     })
 
 const typeResolve = typeEvent
@@ -76,29 +76,17 @@ const app = init.merge(typeResolve)
                     const sheet = $('#original').find('.sheetList')
                     const sheet$ =  Rx.Observable.fromEvent(sheet, 'click')
                     .do((e)=>{
-                        const name = $(e.target).text()
-                        const html = parse(name, map.get(name));
-                        $('.parseText').text(html);
-                        translation.css('display','block');
-                        translation.addClass('animated fadeInUp');
+                        resolveExcelBysheet(e);
                     })
-                    sheet$.subscribe()
+                    const quick = $('#original').find('#quick')
+                    const quick$ = Rx.Observable.fromEvent(quick, 'click')
+                    .do((e)=>{
+                        resolveExcelQuick(e);
+                    })
+                    sheet$.merge(quick$).subscribe()
                 }else{
-                    $('#markdown-field').html(d.data)
-                    $('#markdown-field h5').each(function(){
-                        hideDiv.empty()
-                        const text = $(this).text();
-                        if(parseRule.code.indexOf(text)>-1){
-                            code($(this));
-                            const result = hideDiv.html()
-                            $(this).after(`<pre>${result}</pre>`)
-                        }
-                    });
-                    $('.removeP').remove();
-                    $('.markdown').find('h2').remove()
-                    $('.markdown').removeClass('piled')
+                    resolveDocx(d)
                 }
-               
             })
         })
     }).merge(preview)
@@ -109,6 +97,55 @@ $('#test').click(function(){
     console.log($('#markdown-field').html())
 })
 
+/**
+ * 单个excel表处理
+ * @param  {} e
+ */
+function resolveExcelBysheet(e) {
+    const name = $(e.target).text()
+    const html = parse(name, map.get(name));
+    $('.parseText').text(html);
+    translation.css('display','block');
+    translation.addClass('animated fadeInUp');
+}
+/**
+ * 一键处理excel生成md文件格式
+ * @param  {} e
+ */
+function resolveExcelQuick(e){
+    excelHtml = '';
+    $('.sheetList a').each(function(){
+        console.log($(this).text())
+        const name = $(this).text()
+        const html = parse(name, map.get(name));
+        excelHtml += '#### '+ name + '\n' + html
+    })
+    textarea.val(excelHtml)
+}
+/**
+ * 处理docx 主要处理代码块
+ * @param  {} d
+ */
+function resolveDocx(d){
+    $('#markdown-field').html(d.data)
+    $('#markdown-field h5').each(function(){
+        hideDiv.empty()
+        const text = $(this).text();
+        if(parseRule.code.indexOf(text)>-1){
+            code($(this));
+            const result = hideDiv.html()
+            $(this).after(`<pre>${result}</pre>`)
+        }
+    });
+    $('.removeP').remove();
+    $('.markdown').find('h2').remove()
+    $('.markdown').removeClass('piled')
+}
+
+/**
+ * docx处理 将指定文本放入<pre>中
+ * @param  {} e
+ */
 function code(e) {
     if(e.next().prop('tagName') == 'P'){
         // 直接append会把原元素删除
