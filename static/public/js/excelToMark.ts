@@ -35,10 +35,12 @@ const preview = Rx.Observable.fromEvent($('#preview'), 'click')
             $('.markdown-preview').empty()
             textarea.css('display', 'block')
             $('#markdown-field').removeClass('preview')
+            $('#save').css('display', 'none')
         }else {
             textarea.css('display', 'none')
             $('.markdown-preview').append(exchange(textarea.val().toString()))
             $('#markdown-field').addClass('preview')
+            $('#save').css('display', 'block')
         }
     })
 
@@ -143,8 +145,9 @@ function resolveDocx(d){
         }
     });
     $('.removeP').remove();
-    $('.markdown').find('h2').remove()
+    $('.markdown').find('h2').html(`<button class="ui primary button" id="save">保存 </button>`)
     $('.markdown').removeClass('piled')
+    $('#save').css('display', 'block')
 }
 
 /**

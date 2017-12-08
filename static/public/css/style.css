@@ -117,3 +117,8 @@ markdown css
     font-size: 16px;
     cursor: pointer;
 }
+
+.markdown #save {
+    float: right;
+    display: none;
+}

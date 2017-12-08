@@ -45,7 +45,7 @@
                 </div>
                 <div class="ten wide column">
                     <div class="ui piled segment markdown">
-                        <h2 class="ui header">markdown文本<i class="content icon" id="preview"></i></h2>
+                        <h2 class="ui header">markdown文本<button class="ui primary button" id="save">保存 </button><i class="content icon" id="preview"></i></h2>
                         <div class="ui form">
                             <div class="field" id="markdown-field">
                                 <textarea class="markdown-textarea"></textarea>
@@ -88,9 +88,9 @@
         fake_click(save_link);
     }
 
-    $('#test').click(function() {
+    $('.markdown').on('click', '#save', function() {
         export_raw('test.jy', $('.markdown-preview').html());
-    });
+    })
 </script>
 
 </html>
